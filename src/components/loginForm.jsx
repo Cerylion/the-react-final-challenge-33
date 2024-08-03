@@ -14,19 +14,22 @@ export default function LoginForm () {
   } = useForm()
   
   async function onSubmit(data) {
+    const payload = JSON.stringify(data)
+    console.log(payload)
     try {
       const response = await fetch(`https://api.thechainlair.com/auth/login/`, {
         method: 'POST',
+
+        headers: {
+          'Content-Type': 'application/json'
+        },
         
-        body: {
-          "email": data.email,
-          "password": data.password
-        }
+        body: payload
       })
       const json = await response.json()
-      console.log(json)
-      if (json.token) {
-        window.localStorage.setItem('token', json.token)
+      
+      if (json.data.token) {
+        window.localStorage.setItem('token', json.data.token)
         console.log('login succesfull')
       } else {
         console.error('login failed')

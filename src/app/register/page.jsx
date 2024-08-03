@@ -1,7 +1,7 @@
 
 import RegisterForm from "@/components/registerForm"
 
-export default function LoginPage () {
+export default function RegisterPage () {
 
   return (
     <main className='flex justify-center items-center flex-col gap-4 w-full min-h-dvh'>

@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form'
 import clsx from 'clsx'
 import { useState } from 'react'
 
-export default function RegisterForm () {
+export default function postEditForm () {
 
   const [ showPassword, setShowPassword ] = useState(false)
   const {
@@ -17,16 +17,16 @@ export default function RegisterForm () {
     try {
       const payload = JSON.stringify(data)
       
-      const response = await fetch(`https://api.thechainlair.com/users`, {
-        method: 'POST',
+      const response = await fetch(`https://api.thechainlair.com/posts/id`, {
+        method: 'PATCH',
         headers: {
           'Content-Type': 'application/json'
         },
         
         body: payload
       })
-      console.log('Register succesfull')
-      alert('Register succesfull')
+      console.log('Post succesfully updated')
+      alert('Post succesfully updated')
 
     } catch (error) {
       console.error("Register error: ", error)
@@ -43,36 +43,28 @@ export default function RegisterForm () {
       'border-red-500': errors.root?.credentials
     })}>
 
-      <input type="text" placeholder='email'
+      <input type="text" placeholder='title'
       className='border border-white/50 rounded p-2 text-black'
-      {...register('email', {
-        required: { value: true, message: "Email required" }
+      {...register('title', {
+        required: { value: true, message: "Title required" }
       })} />
-
-      <section className='flex fex-row'>
-        <input type={ showPassword ? 'text' :	'password'}
-        placeholder='password'
-        className='border border-white/50 rounded p-2 text-black'
-        {...register("password", {
-          required: { value: true, message: "Password required" }
-        })} />
-
-        <span
-        className='text-xs text-white/50 cursor-pointer hover:text-white'
-        onClick={handlePasswordShow}
-        > { showPassword ? '🙉 hide' : '🙈 show'} password</span>
-      </section>
 
       <input type="text" placeholder='user name'
       className='border border-white/50 rounded p-2 text-black'
-      {...register('userName', {
+      {...register('user', {
         required: { value: true, message: "User Name required" }
       })} />
 
       <input type="text" placeholder='link to profile pic'
       className='border border-white/50 rounded p-2 text-black'
-      {...register('profilePic', {
-        required: { value: true, message: "User Pic required" }
+      {...register('image', {
+        required: { value: true, message: "Post Image required" }
+      })} />
+
+      <input type="text" placeholder='Article body'
+      className='border border-white/50 rounded p-2 text-black'
+      {...register('body', {
+        required: { value: true, message: "Post Image required" }
       })} />
 
       <button
