@@ -4,7 +4,7 @@ import clsx from 'clsx'
 import { useState, useEffect } from 'react'
 import { redirect } from 'next/navigation'
 
-export default function postEditForm ( { title='', user='', image='', body='' }) {
+export default function createPostForm ( { title='', user='', image='', body='' }) {
 
   useEffect(() => {
     const tkn = localStorage.getItem('token')
@@ -25,16 +25,16 @@ export default function postEditForm ( { title='', user='', image='', body='' })
     try {
       const payload = JSON.stringify(data)
       
-      const response = await fetch(`https://api.thechainlair.com/posts/id`, {
-        method: 'PATCH',
+      const response = await fetch(`https://api.thechainlair.com/posts`, {
+        method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
         
         body: payload
       })
-      console.log('Post succesfully updated')
-      alert('Post succesfully updated')
+      console.log('Post succesfully created')
+      alert('Post succesfully created')
 
     } catch (error) {
       console.error("Register error: ", error)
@@ -47,25 +47,19 @@ export default function postEditForm ( { title='', user='', image='', body='' })
       'border-red-500': errors.root?.credentials
     })}>
 
-      <input type="text" placeholder='title' value={title}
+      <input type="text" placeholder='title'
       className='border border-white/50 rounded p-2 text-black'
       {...register('title', {
         required: { value: true, message: "Title required" }
       })} />
 
-      <input type="text" placeholder='user name' value={user}
-      className='border border-white/50 rounded p-2 text-black'
-      {...register('user', {
-        required: { value: true, message: "User Name required" }
-      })} />
-
-      <input type="text" placeholder='link to profile pic' value={image}
+      <input type="text" placeholder='link to profile pic'
       className='border border-white/50 rounded p-2 text-black'
       {...register('image', {
         required: { value: true, message: "Post Image required" }
       })} />
 
-      <input type="text" placeholder='Article body' value={body}
+      <input type="text" placeholder='Article body'
       className='border border-white/50 rounded p-2 text-black'
       {...register('body', {
         required: { value: true, message: "Post Image required" }

@@ -1,46 +1,38 @@
-"use client";
-import Link from "next/link";
-import { useAuth } from "../hooks/useAuth";
-import { useRouter } from 'next/navigation';
-
+'use client';
+import Link from 'next/link';
+import { useAuth } from '../hooks/useAuth'; 
 
 export default function Header() {
-  const { token, updateToken } = useAuth();
-  const router = useRouter();
-
+  const { token, updateToken } = useAuth(); 
 
   const handleLogout = () => {
-    updateToken(null);
-    router.push('/'); 
+    updateToken(null); 
   };
 
   return (
-    <div className="flex flex-row gap-11">
+    <div className='flex flex-row gap-11'>
       {/* Logo */}
-      <Link href="/">Home</Link>
-
+      <Link href='/'>Home</Link>
+      
       <section>
         {/* Search Input */}
-        <input
-          type="text"
-          placeholder="Search"
-        />
+        <input type="text" placeholder='Search' />
       </section>
 
       {/* Conditional Rendering */}
       {!token ? (
         <>
           <p>
-            <Link href="/login">Login</Link>
+            <Link href='/login'>Login</Link>
           </p>
           <p>
-            <Link href="/register">Register</Link>
+            <Link href='/register'>Register</Link>
           </p>
         </>
       ) : (
-        <button
-          onClick={handleLogout}
-          className="bg-red-500 text-white p-2 rounded hover:bg-red-400"
+        <button 
+          onClick={handleLogout} 
+          className='bg-red-500 text-white p-2 rounded hover:bg-red-400'
         >
           Logout
         </button>

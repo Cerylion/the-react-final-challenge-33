@@ -33,7 +33,7 @@ export default function LoginForm() {
 
       if (response.ok && json.data.token) {
         console.log('Login successful');
-        updateToken(json.data.token); 
+        updateToken(`json.data.token`); 
         router.push('/'); 
       } else {
         console.error('Login failed');
