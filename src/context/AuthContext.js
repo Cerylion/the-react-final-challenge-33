@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
 const AuthContext = createContext();
@@ -7,6 +7,10 @@ export const AuthProvider = ({ children }) => {
     const [token, setToken] = useState(() => {
         return typeof window !== 'undefined' ? localStorage.getItem('token') || null : null;
     });
+    
+    const [userId, setUserId] = useState(() => {
+        return typeof window !== 'undefined' ? localStorage.getItem('userId') || null : null;
+    });
 
     useEffect(() => {
         if (token) {
@@ -14,14 +18,21 @@ export const AuthProvider = ({ children }) => {
         } else {
             localStorage.removeItem('token');
         }
-    }, [token]);
+        
+        if (userId) {
+            localStorage.setItem('userId', userId);
+        } else {
+            localStorage.removeItem('userId');
+        }
+    }, [token, userId]);
 
-    const updateToken = (token) => {
+    const updateAuth = (token, userId) => {
         setToken(token);
+        setUserId(userId);
     };
 
     return (
-        <AuthContext.Provider value={{ token, updateToken }}>
+        <AuthContext.Provider value={{ token, userId, updateAuth }}>
             {children}
         </AuthContext.Provider>
     );

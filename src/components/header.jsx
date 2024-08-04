@@ -1,14 +1,19 @@
 'use client';
 import Link from 'next/link';
-import { useAuth } from '../context/AuthContext' 
-
+import { useAuth } from '../context/AuthContext'; 
+import { useRouter } from 'next/navigation'; 
 
 export default function Header() {
-  const { token, updateToken } = useAuth();
-
+  const { token, updateAuth } = useAuth();
+  const router = useRouter(); 
 
   const handleLogout = () => {
-    updateToken(null); 
+    updateAuth(null, null); 
+    router.push('/'); 
+  };
+
+  const handleCreate = () => {
+    router.push('/post/create'); 
   };
 
   return (
@@ -18,7 +23,7 @@ export default function Header() {
       
       <section>
         {/* Search Input */}
-        <input type="text" placeholder='Search' />
+        <input type="text" placeholder='Search' className="border p-2 rounded" />
       </section>
 
       {/* Conditional Rendering */}
@@ -32,12 +37,20 @@ export default function Header() {
           </p>
         </>
       ) : (
-        <button 
-          onClick={handleLogout} 
-          className='bg-red-500 text-white p-2 rounded hover:bg-red-400'
-        >
-          Logout
-        </button>
+        <>
+          <button 
+            onClick={handleCreate} 
+            className="bg-green-500 text-white p-2 rounded hover:bg-green-400"
+          >
+            Create Post
+          </button>
+          <button 
+            onClick={handleLogout} 
+            className='bg-red-500 text-white p-2 rounded hover:bg-red-400'
+          >
+            Logout
+          </button>
+        </>
       )}
     </div>
   );

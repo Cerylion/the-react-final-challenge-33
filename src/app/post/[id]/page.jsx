@@ -1,6 +1,6 @@
 'use client'; 
 import { useEffect, useState } from 'react';
-import { useAuth } from "../../../hooks/useAuth";
+import { useAuth } from '../../../context/AuthContext' 
 import PostDetail from '../../../components/postDetail';
 import { useRouter } from 'next/navigation';
 
@@ -10,7 +10,7 @@ export default function PostDetailPage({ params }) {
   const [post, setPost] = useState(null); 
   const [loading, setLoading] = useState(true); 
   const [error, setError] = useState(null); 
-  const { token } = useAuth();
+  const { token, userId } = useAuth();
 
   useEffect(() => {
     const fetchPostDetails = async () => {
@@ -35,14 +35,10 @@ export default function PostDetailPage({ params }) {
     }
   }, [id]); 
 
-  const handleCreate = () => {
-    console.log('Redirecting to create post page...');
-    // router.push('/post/create'); 
-  };
 
   const handleUpdate = () => {
     console.log('Redirecting to update post page:', id);
-    // router.push(`/post/update/${id}`); 
+    router.push(`/post/edit/${id}`); 
   };
 
   const handleDelete = async () => {
@@ -51,7 +47,7 @@ export default function PostDetailPage({ params }) {
         const response = await fetch(`https://api.thechainlair.com/posts/${id}`, {
           method: 'DELETE',
           headers: {
-            'Authorization': `Bearer ${token}`,
+            'authorization': `${token}`,
           },
         });
 
@@ -76,14 +72,8 @@ export default function PostDetailPage({ params }) {
       ) : post ? ( 
         <div>
           <PostDetail post={post} />
-          {token && ( 
+          {token && userId === post.user && ( 
             <div className="flex gap-4 mt-4">
-              <button 
-                onClick={handleCreate} 
-                className="bg-green-500 text-white p-2 rounded hover:bg-green-400"
-              >
-                Create Post
-              </button>
               <button 
                 onClick={handleUpdate} 
                 className="bg-blue-500 text-white p-2 rounded hover:bg-blue-400"

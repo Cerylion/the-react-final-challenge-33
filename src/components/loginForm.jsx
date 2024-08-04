@@ -7,7 +7,7 @@ import { useAuth } from '../context/AuthContext'
 
 export default function LoginForm() {
   const router = useRouter();
-  const { updateToken } = useAuth();
+  const { updateAuth } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
   
   const {
@@ -33,7 +33,7 @@ export default function LoginForm() {
 
       if (response.ok && json.data.token) {
         console.log('Login successful');
-        updateToken(`json.data.token`); 
+        updateAuth(json.data.token.token, json.data.token.userId); 
         router.push('/'); 
       } else {
         console.error('Login failed');
