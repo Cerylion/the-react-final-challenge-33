@@ -1,9 +1,11 @@
 'use client';
 import Link from 'next/link';
-import { useAuth } from '../hooks/useAuth'; 
+import { useAuth } from '../context/AuthContext' 
+
 
 export default function Header() {
-  const { token, updateToken } = useAuth(); 
+  const { token, updateToken } = useAuth();
+
 
   const handleLogout = () => {
     updateToken(null); 

@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import clsx from 'clsx';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { useAuth } from '../hooks/useAuth'; 
+import { useAuth } from '../context/AuthContext' 
 
 export default function LoginForm() {
   const router = useRouter();
