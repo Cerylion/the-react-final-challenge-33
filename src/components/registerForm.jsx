@@ -2,6 +2,8 @@
 import { useForm } from 'react-hook-form'
 import clsx from 'clsx'
 import { useState } from 'react'
+import { useRouter } from 'next/navigation';
+
 
 export default function RegisterForm () {
 
@@ -12,6 +14,9 @@ export default function RegisterForm () {
     formState: { errors },
     setError,
   } = useForm()
+
+  const router = useRouter();
+
   
   async function onSubmit(data) {
     try {
@@ -25,8 +30,12 @@ export default function RegisterForm () {
         
         body: payload
       })
-      console.log('Register succesfull')
-      alert('Register succesfull')
+
+      if (response.ok) {
+        console.log('Register succesfull')
+        alert('Register succesfull')
+        router.push('/')
+      }
 
     } catch (error) {
       console.error("Register error: ", error)

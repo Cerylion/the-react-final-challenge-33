@@ -28,7 +28,7 @@ const Home = () => {
   }, []);
 
   return (
-    <div>
+    <div className='flex flex-col justify-center object-center'>
       <h1>Posts</h1>
       {loading ? ( 
         <p>Loading posts...</p>
